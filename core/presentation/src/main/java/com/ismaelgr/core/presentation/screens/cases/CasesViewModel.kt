@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.ismaelgr.core.domain.entity.Case
 import com.ismaelgr.core.domain.entity.ErrorType
 import com.ismaelgr.core.domain.usecase.AddExampleCaseUseCase
+import com.ismaelgr.core.domain.usecase.AddExcelDataUseCase
 import com.ismaelgr.core.domain.usecase.GetLawerCasesUseCase
 import com.ismaelgr.core.presentation.utils.flow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +20,8 @@ import javax.inject.Inject
 class CasesViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val getLawerCasesUseCase: GetLawerCasesUseCase,
-    private val addExampleCaseUseCase: AddExampleCaseUseCase
+    private val addExampleCaseUseCase: AddExampleCaseUseCase,
+    private val addExcelDataUseCase: AddExcelDataUseCase
 ) : ViewModel() {
     
     private val _state: MutableStateFlow<State> = MutableStateFlow(State.Loading)
@@ -39,13 +41,18 @@ class CasesViewModel @Inject constructor(
         addExampleCaseUseCase(userIdParam).flow(viewModelScope, onComplete = { loadData() })
     }
     
+    fun onResetWithExampleClick() {
+        val userIdParam: UUID = getParamUserId() ?: return
+        addExcelDataUseCase(userIdParam).flow(viewModelScope, onComplete = { loadData() })
+    }
+    
     private fun getParamUserId(): UUID? {
         val userIdParam: String? = savedStateHandle["userId"]
-        if(userIdParam.isNullOrEmpty()) {
+        return if(userIdParam.isNullOrEmpty()) {
             _state.update { State.Error(ErrorType.NO_USER_FOUND) }
-            return null
+            null
         } else {
-            return UUID.fromString(userIdParam)
+            UUID.fromString(userIdParam)
         }
     }
     
