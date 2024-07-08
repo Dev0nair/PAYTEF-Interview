@@ -21,7 +21,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ismaelgr.core.domain.entity.Case
 import com.ismaelgr.core.domain.entity.CaseState
+import com.ismaelgr.core.domain.entity.CaseType
 import com.ismaelgr.core.domain.utils.formatToString
+import com.ismaelgr.core.presentation.utils.onlyFirstUpper
 import java.util.Calendar
 import java.util.UUID
 
@@ -40,7 +42,7 @@ fun CaseListItem(case: Case) {
         ) {
             SecondaryTitle(text = case.material)
             Body(text = case.date)
-            Description(text = case.type)
+            Description(text = case.type.name.onlyFirstUpper())
         }
         val icon: ImageVector = when (case.state) {
             CaseState.ACTIVE -> Icons.Default.Check
@@ -56,8 +58,8 @@ fun CaseListItem(case: Case) {
 @Preview(showBackground = true)
 private fun Preview() {
     Column {
-        CaseListItem(case = Case(id = UUID.randomUUID(), ownerId = UUID.randomUUID(), material = "Material", date = Calendar.getInstance().formatToString(), type = "type", state = CaseState.ACTIVE))
-        CaseListItem(case = Case(id = UUID.randomUUID(), ownerId = UUID.randomUUID(), material = "Material", date = Calendar.getInstance().formatToString(), type = "type", state = CaseState.CANCELED))
-        CaseListItem(case = Case(id = UUID.randomUUID(), ownerId = UUID.randomUUID(), material = "Material", date = Calendar.getInstance().formatToString(), type = "type", state = CaseState.CLOSED))
+        CaseListItem(case = Case(id = UUID.randomUUID(), ownerId = UUID.randomUUID(), material = "Material", date = Calendar.getInstance().formatToString(), type = CaseType.entries.random(), state = CaseState.ACTIVE))
+        CaseListItem(case = Case(id = UUID.randomUUID(), ownerId = UUID.randomUUID(), material = "Material", date = Calendar.getInstance().formatToString(), type = CaseType.entries.random(), state = CaseState.CANCELED))
+        CaseListItem(case = Case(id = UUID.randomUUID(), ownerId = UUID.randomUUID(), material = "Material", date = Calendar.getInstance().formatToString(), type = CaseType.entries.random(), state = CaseState.CLOSED))
     }
 }

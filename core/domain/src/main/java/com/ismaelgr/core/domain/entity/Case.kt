@@ -9,7 +9,7 @@ data class Case(
     val ownerId: UUID,
     val material: String,
     val date: String,
-    val type: String,
+    val type: CaseType,
     val state: CaseState
 )
 
@@ -18,6 +18,6 @@ fun Case_Mock(
     ownerId: UUID = UUID.randomUUID(),
     material: String = "Material",
     date: String = Calendar.getInstance().formatToString(),
-    type: String = "Type",
+    type: CaseType = CaseType.entries.random(),
     state: CaseState = CaseState.entries.random()
 ) = Case(id, ownerId, material, date, type, state)

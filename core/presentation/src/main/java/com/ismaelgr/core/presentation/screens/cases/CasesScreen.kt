@@ -1,20 +1,25 @@
 package com.ismaelgr.core.presentation.screens.cases
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Create
+import androidx.compose.material3.Button
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ismaelgr.core.domain.entity.Case
 import com.ismaelgr.core.presentation.components.CaseListItem
+import com.ismaelgr.core.presentation.components.SecondaryTitle
 import com.ismaelgr.core.presentation.components.ToolbarComponent
 import com.ismaelgr.core.presentation.model.SideContent
 import com.ismaelgr.core.presentation.screens.base.LoadingScreen
@@ -40,13 +45,13 @@ fun CasesScreen(
     
     when (state) {
         is CasesViewModel.State.Loading -> LoadingScreen()
-        is CasesViewModel.State.Data -> View((state as CasesViewModel.State.Data).data, onBackClick, viewModel::onCreateCaseClick)
+        is CasesViewModel.State.Data -> View((state as CasesViewModel.State.Data).data, onBackClick, onCreateClick = viewModel::onCreateCaseClick, onResetWithExampleClick = viewModel::onResetWithExampleClick)
         else -> Unit
     }
 }
 
 @Composable
-private fun View(data: List<Case>, onBackClick: () -> Unit, onCreateClick: () -> Unit) {
+private fun View(data: List<Case>, onBackClick: () -> Unit, onCreateClick: () -> Unit, onResetWithExampleClick: () -> Unit) {
     Screen(
         toolbar = {
             ToolbarComponent(
@@ -57,10 +62,22 @@ private fun View(data: List<Case>, onBackClick: () -> Unit, onCreateClick: () ->
         }
     ) {
         LazyColumn(
+            modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             items(data, key = { it.id }) { case ->
                 CaseListItem(case = case)
+            }
+        }
+        
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Button(
+                onClick = onResetWithExampleClick
+            ) {
+                SecondaryTitle(text = "Reset with example data")
             }
         }
     }
@@ -72,6 +89,7 @@ private fun Preview() {
     View(
         data = listOf(),
         onBackClick = { },
-        onCreateClick = { }
+        onCreateClick = { },
+        onResetWithExampleClick = { }
     )
 }
