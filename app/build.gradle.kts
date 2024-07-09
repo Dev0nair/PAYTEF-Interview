@@ -69,11 +69,7 @@ dependencies {
     implementation(libs.hilt)
     kapt(libs.googleHiltCompiler)
     
-    // Debug Utils
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
-    
-    // Screens
+    // Module Dependency
     implementation(project(":core:data"))
     implementation(project(":core:presentation"))
 }

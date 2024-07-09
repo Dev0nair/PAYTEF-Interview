@@ -34,15 +34,10 @@ android {
 dependencies {
     // Basic
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
     
     // Hilt
     implementation(libs.hilt)
     kapt(libs.googleHiltCompiler)
-    
-    // Room
-    implementation(libs.room.impl)
-    kapt(libs.room.kapt)
     
     // Module Dependency
     implementation(project(":core:domain"))

@@ -34,12 +34,10 @@ android {
 dependencies {
     // Basic
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
     
     // Hilt
     implementation(libs.hilt)
     kapt(libs.googleHiltCompiler)
-    
     
     // Testing
     testImplementation(libs.androidx.junit)
