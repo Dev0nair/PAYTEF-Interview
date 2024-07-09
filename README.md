@@ -21,7 +21,7 @@ Este proyecto consta de 2 módulos:
   - Dominio: Contendrá la lógica de negocio de la aplicación
     - Entity: Las entidades que conformarán los datos con los que se va a trabajar
     - Repository: Contendrá los contratos (interfaces) que necesitaremos para la utilización y manejo de datos a la hora de seguir la lógica de negocio
-    - UseCase: Los casos de uso son las unidades lógicas. Determinará las funciones a procesar concretas para una utilidad
+    - UseCase: Los casos de uso son las unidades lógicas de negocio. Determinará las funciones a procesar concretas para una utilidad
     - Utils: Contiene las utilidades para facilitar algunos desarrollos, como el formateo de fechas para almacenar en base de datos
     - Di: Aquí se configuran las inyecciones a realizar, para poder proporcionar las necesidades de los elementos de dominio allá donde sea necesario.
   - Data: Aquí se tratará toda la gestión de los datos a usar por la lógica de negocio (almacenar, consultar, actualizar...)
@@ -45,6 +45,7 @@ Se implementa los casos de uso necesarios para satisfacer las necesidades descri
 - Navegar a la pantalla de Cases
 - Crear un Caso de prueba nuevo
 - Ver el listado de casos a los que tendrá acceso
+- Implementar el excel aportado en el correo para tener un listado de ejemplo para mostrar en la pantalla Cases
 
 Lo demás, como se indica en la descripción de la prueba, será probado como test cases dentro de la capa de dominio (donde se encuentra los casos de uso). Fichero: BatteryTest
 PD: Al igual que se puede testear los flows del caso de uso, se puede testear de la misma manera los StateFlows de los viewModel.
